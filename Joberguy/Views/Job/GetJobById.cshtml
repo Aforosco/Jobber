@@ -1,0 +1,46 @@
+@model Joberguy.Models.SingleJobViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Job Details</title>
+</head>
+<body>
+
+    <div>
+        <h4>Job Details</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">Job Title:</dt>
+            <dd class="col-sm-10">@Model.JobTitle</dd>
+
+            <dt class="col-sm-2">Description:</dt>
+            <dd class="col-sm-10">@Model.JobDescription</dd>
+
+            <dt class="col-sm-2">Location:</dt>
+            <dd class="col-sm-10">@Model.JobLocation</dd>
+
+            <dt class="col-sm-2">Requirement:</dt>
+            <dd class="col-sm-10">@Model.JobRequirement</dd>
+
+            <dt class="col-sm-2">Posted Date:</dt>
+            <dd class="col-sm-10">@Model.postDateTime.ToString("yyyy-MM-dd")</dd>
+
+            <dt class="col-sm-2">Expiry Date:</dt>
+            <dd class="col-sm-10">@Model.expiringDate.ToString("yyyy-MM-dd")</dd>
+        </dl>
+    </div>
+
+    <div>
+        <a class="btn btn-sm btn-primary" asp-action="Apply" asp-route-id="@Model.Id">Apply</a> |
+        <a class="btn btn-sm btn-info" asp-action="Index">Back to jobs </a>
+    </div>
+
+</body>
+</html>
