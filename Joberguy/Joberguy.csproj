@@ -30,6 +30,7 @@
   <ItemGroup>
     <Folder Include="Repo\" />
     <Folder Include="Service\" />
+    <Folder Include="wwwroot\Images\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Models\VacancyViewModel.cs">
@@ -37,5 +38,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\Images\" />
   </ItemGroup>
 </Project>

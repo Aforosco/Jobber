@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Joberguy.styles.css" asp-append-version="true" />
 </head>
-<body>
+<body class="layout">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light navcolor border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Joberguy</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -37,11 +37,35 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - Joberguy - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+            <footer class="footer bg-dark text-light py-4 mt-5">
+                <div class="container">
+                    <div class="row text-center text-md-start">
+                        <div class="col-md-4">
+                            <p class="mb-1">
+                                📞 <strong>Contact Us:</strong>
+                                <a href="mailto:recruitment@yourinstitute.edu" class="text-light text-decoration-none">
+                                    recruitment@yourinstitute.edu
+                                </a> | +123 456 7890
+                            </p>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="mb-1 mr-2">
+                                📍 <strong>Location:</strong> 123 Academy Road, City, Country
+                            </p>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="mb-1">
+                                🔗
+                                <a href="#" class="text-light text-decoration-none mx-2">Privacy Policy</a> |
+                                <a href="#" class="text-light text-decoration-none mx-2">FAQs</a> |
+                                <a href="#" class="text-light text-decoration-none mx-2">Terms & Conditions</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+
+     
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

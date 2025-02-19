@@ -20,3 +20,34 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.Landing {
+    background: url('/images/Landing.jpg') no-repeat center center;
+    background-size: cover;
+    height: 300px; /* Adjust as needed */
+    border-radius: 10px;
+}
+
+.Office {
+    background: url('/images/Office.jpg') no-repeat center center;
+    background-size: cover;
+    height: 300px; /* Adjust as needed */
+    border-radius: 10px;
+}
+
+.heading {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.layout {
+    background-color: #fff;
+}
+.navcolor {
+    background-color: #7e42f5;
+}
+.center{
+    align-items :center;
+}
+
