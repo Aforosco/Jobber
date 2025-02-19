@@ -13,8 +13,10 @@ namespace Joberguy.Service
 		List<GetAllPostedJobViewModel>AllPostedJobs();
 		void Delete(int Id);
         Job GetJobById(int jobId);
+        Job GetApplicationforJob(int Id);
 
-	}
+
+    }
     public class JobService : IJobService
     {
         private readonly IJobRepo _jr;
@@ -59,6 +61,19 @@ namespace Joberguy.Service
         {
             var job = edvm.Adapt<Job>(); // ✅ Convert `EditJobViewModel` to `Job`
             _jr.UpdateJobDetails(job);
+        }
+
+        public Job GetApplicationforJob(int Id)
+        {
+            var Applications = _jr.ApplicationRecieved(Id);
+
+            if (Applications == null)
+            {
+                throw new KeyNotFoundException($"Job with ID {Id} not found.");
+                // OR return null;
+            }
+
+            return Applications;
         }
     }
 

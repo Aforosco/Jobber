@@ -1,5 +1,6 @@
 ﻿using System;
 using Joberguy.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Joberguy.Repo
 {
@@ -10,8 +11,10 @@ namespace Joberguy.Repo
 		void UpdateJobDetails(Job j);
 		void Deletejob(int jobId);
         Job GetJobById(int JobID);
+        Job ApplicationRecieved(int JobId);
 
-	}
+
+    }
 	public class JobRepo:IJobRepo
 	{
 		private readonly ApplicationDbContext _db;
@@ -73,6 +76,22 @@ namespace Joberguy.Repo
 
             }
             
+        }
+        public Job ApplicationRecieved(int JobId)
+        {
+            var jobWithApplications = _db.jobs
+            .Include(j => j.JobApplications)
+             .FirstOrDefault(j => j.Id == JobId);
+
+            if (jobWithApplications == null)
+            {
+                
+                throw new KeyNotFoundException($"No Application Job with ID {JobId} not found.");
+            }
+
+            return jobWithApplications;
+             
+                 
         }
     }
 }

@@ -188,6 +188,13 @@ namespace Joberguy.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult JobApplicationRecieved(int id)
+        {
+            var Applications = _ijs.GetApplicationforJob(id);
+            return Ok(Applications);
+
+        }
 
     }
 
