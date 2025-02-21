@@ -4,6 +4,7 @@ using Joberguy.Data;
 using Mapster;
 using System.Reflection;
 using Joberguy.Service;
+using Joberguy.Repo;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +22,15 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     .AddDefaultTokenProviders().AddDefaultUI();
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
-builder.Services.AddTransient<IEmailService, EmailService>();
+builder.Services.AddScoped<IJobRepo, JobRepo>();  // Register JobRepo
+builder.Services.AddScoped<IJobService, JobService>();  // Register JobService
+
+builder.Services.AddScoped<IJobApplicationRepo, JobApplicationRepo>();  // Register JobApplicationRepo
+builder.Services.AddScoped<IJobApplicationService, JobApplicationService>();  // Register JobApplicationService
+
+builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IJobService, JobService>();
+builder.Services.AddScoped<IJobApplicationService, JobApplicationService>();
 TypeAdapterConfig.GlobalSettings.Scan(Assembly.GetEntryAssembly()!);
 
 var app = builder.Build();

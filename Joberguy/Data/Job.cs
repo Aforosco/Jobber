@@ -15,6 +15,7 @@ namespace Joberguy.Data
 
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		
 		public int Id { get; set; }
 		public string? JobTitle { get; set; }
 		public string? JobDescription {get; set;}

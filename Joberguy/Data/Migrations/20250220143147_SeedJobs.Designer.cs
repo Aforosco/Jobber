@@ -3,6 +3,7 @@ using System;
 using Joberguy.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Joberguy.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250220143147_SeedJobs")]
+    partial class SeedJobs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.8");
@@ -112,103 +115,103 @@ namespace Joberguy.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = -1,
+                            Id = 1,
                             JobDescription = "Develop and maintain software applications.",
                             JobLocation = "New York, USA",
                             JobRequirement = "C#, .NET, SQL",
                             JobTitle = "Software Engineer",
-                            expiringDate = new DateTime(2025, 3, 22, 14, 49, 42, 228, DateTimeKind.Local).AddTicks(8150),
-                            postDateTime = new DateTime(2025, 2, 20, 14, 49, 42, 228, DateTimeKind.Local).AddTicks(8150)
+                            expiringDate = new DateTime(2025, 3, 22, 14, 31, 47, 684, DateTimeKind.Local).AddTicks(5580),
+                            postDateTime = new DateTime(2025, 2, 20, 14, 31, 47, 684, DateTimeKind.Local).AddTicks(5580)
                         },
                         new
                         {
-                            Id = -2,
+                            Id = 2,
                             JobDescription = "Analyze data and generate reports.",
                             JobLocation = "San Francisco, USA",
                             JobRequirement = "Python, SQL, Power BI",
                             JobTitle = "Data Analyst",
-                            expiringDate = new DateTime(2025, 3, 22, 14, 49, 42, 228, DateTimeKind.Local).AddTicks(8160),
-                            postDateTime = new DateTime(2025, 2, 20, 14, 49, 42, 228, DateTimeKind.Local).AddTicks(8160)
+                            expiringDate = new DateTime(2025, 3, 22, 14, 31, 47, 684, DateTimeKind.Local).AddTicks(5590),
+                            postDateTime = new DateTime(2025, 2, 20, 14, 31, 47, 684, DateTimeKind.Local).AddTicks(5580)
                         },
                         new
                         {
-                            Id = -3,
+                            Id = 3,
                             JobDescription = "Protect company assets from cyber threats.",
                             JobLocation = "London, UK",
                             JobRequirement = "Network Security, Ethical Hacking",
                             JobTitle = "Cybersecurity Specialist",
-                            expiringDate = new DateTime(2025, 3, 22, 14, 49, 42, 228, DateTimeKind.Local).AddTicks(8160),
-                            postDateTime = new DateTime(2025, 2, 20, 14, 49, 42, 228, DateTimeKind.Local).AddTicks(8160)
+                            expiringDate = new DateTime(2025, 3, 22, 14, 31, 47, 684, DateTimeKind.Local).AddTicks(5590),
+                            postDateTime = new DateTime(2025, 2, 20, 14, 31, 47, 684, DateTimeKind.Local).AddTicks(5590)
                         },
                         new
                         {
-                            Id = -4,
+                            Id = 4,
                             JobDescription = "Design user-friendly interfaces.",
                             JobLocation = "Remote",
                             JobRequirement = "Figma, Adobe XD, HTML/CSS",
                             JobTitle = "UX/UI Designer",
-                            expiringDate = new DateTime(2025, 3, 22, 14, 49, 42, 228, DateTimeKind.Local).AddTicks(8170),
-                            postDateTime = new DateTime(2025, 2, 20, 14, 49, 42, 228, DateTimeKind.Local).AddTicks(8170)
+                            expiringDate = new DateTime(2025, 3, 22, 14, 31, 47, 684, DateTimeKind.Local).AddTicks(5590),
+                            postDateTime = new DateTime(2025, 2, 20, 14, 31, 47, 684, DateTimeKind.Local).AddTicks(5590)
                         },
                         new
                         {
-                            Id = -5,
+                            Id = 5,
                             JobDescription = "Manage project timelines and resources.",
                             JobLocation = "Berlin, Germany",
                             JobRequirement = "Agile, Scrum, PMP",
                             JobTitle = "Project Manager",
-                            expiringDate = new DateTime(2025, 3, 22, 14, 49, 42, 228, DateTimeKind.Local).AddTicks(8170),
-                            postDateTime = new DateTime(2025, 2, 20, 14, 49, 42, 228, DateTimeKind.Local).AddTicks(8170)
+                            expiringDate = new DateTime(2025, 3, 22, 14, 31, 47, 684, DateTimeKind.Local).AddTicks(5600),
+                            postDateTime = new DateTime(2025, 2, 20, 14, 31, 47, 684, DateTimeKind.Local).AddTicks(5590)
                         },
                         new
                         {
-                            Id = -6,
+                            Id = 6,
                             JobDescription = "Develop AI models and algorithms.",
                             JobLocation = "Toronto, Canada",
                             JobRequirement = "TensorFlow, Machine Learning, Python",
                             JobTitle = "AI Engineer",
-                            expiringDate = new DateTime(2025, 3, 22, 14, 49, 42, 228, DateTimeKind.Local).AddTicks(8170),
-                            postDateTime = new DateTime(2025, 2, 20, 14, 49, 42, 228, DateTimeKind.Local).AddTicks(8170)
+                            expiringDate = new DateTime(2025, 3, 22, 14, 31, 47, 684, DateTimeKind.Local).AddTicks(5600),
+                            postDateTime = new DateTime(2025, 2, 20, 14, 31, 47, 684, DateTimeKind.Local).AddTicks(5600)
                         },
                         new
                         {
-                            Id = -8,
+                            Id = 7,
                             JobDescription = "Maintain CI/CD pipelines.",
                             JobLocation = "Sydney, Australia",
                             JobRequirement = "AWS, Kubernetes, Docker",
                             JobTitle = "DevOps Engineer",
-                            expiringDate = new DateTime(2025, 3, 22, 14, 49, 42, 228, DateTimeKind.Local).AddTicks(8180),
-                            postDateTime = new DateTime(2025, 2, 20, 14, 49, 42, 228, DateTimeKind.Local).AddTicks(8180)
+                            expiringDate = new DateTime(2025, 3, 22, 14, 31, 47, 684, DateTimeKind.Local).AddTicks(5600),
+                            postDateTime = new DateTime(2025, 2, 20, 14, 31, 47, 684, DateTimeKind.Local).AddTicks(5600)
                         },
                         new
                         {
-                            Id = -9,
+                            Id = 8,
                             JobDescription = "Develop and execute marketing strategies.",
                             JobLocation = "Paris, France",
                             JobRequirement = "SEO, Google Ads, Content Marketing",
                             JobTitle = "Marketing Manager",
-                            expiringDate = new DateTime(2025, 3, 22, 14, 49, 42, 228, DateTimeKind.Local).AddTicks(8180),
-                            postDateTime = new DateTime(2025, 2, 20, 14, 49, 42, 228, DateTimeKind.Local).AddTicks(8180)
+                            expiringDate = new DateTime(2025, 3, 22, 14, 31, 47, 684, DateTimeKind.Local).AddTicks(5600),
+                            postDateTime = new DateTime(2025, 2, 20, 14, 31, 47, 684, DateTimeKind.Local).AddTicks(5600)
                         },
                         new
                         {
-                            Id = -10,
+                            Id = 9,
                             JobDescription = "Manage hiring and employee relations.",
                             JobLocation = "Dubai, UAE",
                             JobRequirement = "HR Management, Recruitment",
                             JobTitle = "HR Specialist",
-                            expiringDate = new DateTime(2025, 3, 22, 14, 49, 42, 228, DateTimeKind.Local).AddTicks(8180),
-                            postDateTime = new DateTime(2025, 2, 20, 14, 49, 42, 228, DateTimeKind.Local).AddTicks(8180)
+                            expiringDate = new DateTime(2025, 3, 22, 14, 31, 47, 684, DateTimeKind.Local).AddTicks(5610),
+                            postDateTime = new DateTime(2025, 2, 20, 14, 31, 47, 684, DateTimeKind.Local).AddTicks(5610)
                         },
                         new
                         {
-                            Id = -11,
+                            Id = 10,
                             JobDescription = "Develop decentralized applications.",
                             JobLocation = "Singapore",
                             JobRequirement = "Solidity, Ethereum, Smart Contracts",
                             JobTitle = "Blockchain Developer",
-                            expiringDate = new DateTime(2025, 3, 22, 14, 49, 42, 228, DateTimeKind.Local).AddTicks(8190),
-                            postDateTime = new DateTime(2025, 2, 20, 14, 49, 42, 228, DateTimeKind.Local).AddTicks(8190)
+                            expiringDate = new DateTime(2025, 3, 22, 14, 31, 47, 684, DateTimeKind.Local).AddTicks(5610),
+                            postDateTime = new DateTime(2025, 2, 20, 14, 31, 47, 684, DateTimeKind.Local).AddTicks(5610)
                         });
                 });
 

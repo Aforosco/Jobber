@@ -37,6 +37,7 @@ namespace Joberguy.Service
                 .Map(d => d.Gender, s => s.Gender)
                 .Map(d => d.Nationality, s => s.Nationality)
                 .Map(d => d.File, s => s.File);
+
             config.NewConfig<SingleJobViewModel, Job>().TwoWays()
                 .Map(d => d.Id, s => s.Id)
                 .Map(d => d.JobTitle, s => s.JobTitle)

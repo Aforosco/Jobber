@@ -51,3 +51,23 @@ body {
     align-items :center;
 }
 
+/* Makes the table header sticky for scrolling */
+.table-responsive {
+    max-height: 600px; /* Adjust as needed */
+    overflow-y: auto;
+}
+
+.table thead th {
+    position: sticky;
+    top: 0;
+    background-color: #343a40 !important;
+    color: white;
+    z-index: 1;
+}
+/* Truncate long text with ellipsis */
+.text-truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 250px;
+}

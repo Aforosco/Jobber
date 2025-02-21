@@ -44,7 +44,7 @@ namespace Joberguy.Repo
 
         public Job GetJobById(int JobId)
         {
-            var job = _db.jobs.Find(JobId);
+            var job = _db.jobs.FirstOrDefault(j => j.Id==JobId);
 
             if (job == null)
             {

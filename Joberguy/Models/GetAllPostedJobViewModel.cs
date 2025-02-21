@@ -4,15 +4,20 @@ namespace Joberguy.Models
 {
 	public class GetAllPostedJobViewModel
 	{
-		
+[Required]
+public int Id { get; set; }
+[Required]
+public string? JobRequirement { get; set; }
+[Required]
+public string? JobDescription { get; set; }
             [Required]
             public string JobTitle { get; set; } = string.Empty;
             [Required]
-            public string? Location { get; set; }
+            public string? JobLocation { get; set; }
             [Required]
-            public string? PostDate { get; set; }
+            public DateTime PostDateTime { get; set; }
             [Required]
-            public string? expiringDate { get; set; }
+            public DateTime expiringDate { get; set; }
             
         
 	}

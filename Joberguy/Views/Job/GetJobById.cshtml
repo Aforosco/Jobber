@@ -1,46 +1,47 @@
+
 @model Joberguy.Models.SingleJobViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
-@{
-    Layout = null;
-}
 
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Job Details</title>
-</head>
 <body>
 
-    <div>
-        <h4>Job Details</h4>
-        <hr />
-        <dl class="row">
-            <dt class="col-sm-2">Job Title:</dt>
-            <dd class="col-sm-10">@Model.JobTitle</dd>
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="card shadow-lg" style="max-width: 600px; width: 100%;">
+            <div class="card-body text-center">
+                <h2 class="card-title text-primary">@Model.JobTitle</h2>
+                <h5 class="text-muted">@Model.JobLocation</h5>
+                <p class="card-text"><strong>Description:</strong> @Model.JobDescription</p>
+                <p class="card-text"><strong>Requirements:</strong> @Model.JobRequirement</p>
+                <p class="text-muted">
+                    <strong>Posted:</strong> @Model.postDateTime.ToString("yyyy-MM-dd") <br>
+                    <strong>Expires:</strong> @Model.expiringDate.ToString("yyyy-MM-dd")
+                </p>
+                <div class="d-flex justify-content-between">
+                    @if (User.Identity.IsAuthenticated && !User.IsInRole("Admin"))
+                    {
+                        <!-- If user is logged in and NOT an admin, allow applying -->
+                        <a class="btn btn-success w-50 me-2" asp-action="SendApplication" asp-route-id="@Model.Id">Apply</a>
+                    }
+                    else
+                    {
+                        <!-- If user is not logged in, redirect to login -->
+                        <a href="#" class="btn btn-success w-50 me-2 apply-btn">Apply</a>
+                    }
 
-            <dt class="col-sm-2">Description:</dt>
-            <dd class="col-sm-10">@Model.JobDescription</dd>
 
-            <dt class="col-sm-2">Location:</dt>
-            <dd class="col-sm-10">@Model.JobLocation</dd>
-
-            <dt class="col-sm-2">Requirement:</dt>
-            <dd class="col-sm-10">@Model.JobRequirement</dd>
-
-            <dt class="col-sm-2">Posted Date:</dt>
-            <dd class="col-sm-10">@Model.postDateTime.ToString("yyyy-MM-dd")</dd>
-
-            <dt class="col-sm-2">Expiry Date:</dt>
-            <dd class="col-sm-10">@Model.expiringDate.ToString("yyyy-MM-dd")</dd>
-        </dl>
-    </div>
-
-    <div>
-        <a class="btn btn-sm btn-primary" asp-action="Apply" asp-route-id="@Model.Id">Apply</a> |
-        <a class="btn btn-sm btn-info" asp-action="Index">Back to jobs </a>
+                    <a class="btn btn-secondary w-50" asp-action="GetAllPostedJobs">Back to Jobs</a>
+                </div>
+            </div>
+        </div>
     </div>
 
 </body>
-</html>
+
+<script>$(document).ready(function () {
+        $(".apply-btn").click(function (e) {
+            e.preventDefault(); // Prevent default link behavior
+            window.location.href = "/Account/Login"; // Change this to your login page URL
+        });
+});
+    </script>

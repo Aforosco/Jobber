@@ -1,10 +1,58 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title></title>
-</head>
-<body>
+﻿@model IEnumerable<JobwithApplicationViewModel>
 
-</body>
-</html>
+@{
+    ViewData["Title"] = "Job Applications";
+    var jobTitle = ViewBag.JobTitle as string;
+}
+
+<div class="container mt-4">
+    <h2 class="text-center text-primary">@jobTitle - Applications</h2>
+    <hr />
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-warning text-center">
+            No applications received for this job yet.
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover shadow-sm">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Applicant Name</th>
+                        <th>Address</th>
+                        <th>Gender</th>
+                        <th>Nationality</th>
+                        <th>Job Location</th>
+                        <th>Application Date</th>
+                        <th> User </th>
+                        <th>Actions</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var application in Model)
+                    {
+                        <tr>
+                            <td>@ViewBag.JobTitle</td>
+                            <td>@application.ApplicatFirstName @application.ApplicantLastName</td>
+                            <td>@application.Address</td>
+                            <td>@application.Gender</td>
+                            <td>@application.Nationality</td>
+                            <td>@application.JobLocation</td>
+                            <td>@application.ApplicationDate.ToShortDateString()</td>
+                            <td>@application.User</td>
+                            <td class="text-center">
+                            <a asp-action="Details" asp-route-id="@application.Id" class="btn btn-info btn-sm text-white">
+                                <i class="bi bi-eye"></i> view
+                            </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

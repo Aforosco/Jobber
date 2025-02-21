@@ -1,21 +1,18 @@
-@model IEnumerable<Joberguy.Data.Job>
+@model IEnumerable<Joberguy.Models.GetAllPostedJobViewModel>
 
-@{
-    Layout = null;
-}
+
 
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>GetAllPostedJobs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Get All Posted Jobs</title>
+    
 </head>
 <body>
     <div class="container mt-4">
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2 class="text-primary">Job Listings</h2>
-
+            <h2 class="text-primary"><i class="bi bi-briefcase"></i> Job Listings</h2>
             @if (User.IsInRole("Admin"))
             {
                 <a asp-action="Create" class="btn btn-success">
@@ -25,16 +22,16 @@
         </div>
 
         <div class="table-responsive shadow-lg p-3 bg-white rounded">
-            <table class="table table-hover table-bordered">
+            <table class="table table-hover table-bordered align-middle">
                 <thead class="table-dark text-center">
                     <tr>
-                        <th>@Html.DisplayNameFor(model => model.Id)</th>
-                        <th>@Html.DisplayNameFor(model => model.JobTitle)</th>
-                        <th>@Html.DisplayNameFor(model => model.JobDescription)</th>
-                        <th>@Html.DisplayNameFor(model => model.JobLocation)</th>
-                        <th>@Html.DisplayNameFor(model => model.JobRequirement)</th>
-                        <th>@Html.DisplayNameFor(model => model.postDateTime)</th>
-                        <th>@Html.DisplayNameFor(model => model.expiringDate)</th>
+                        <th>Job ID</th>
+                        <th>Job Title</th>
+                        <th>Description</th>
+                        <th>Location</th>
+                        <th>Requirements</th>
+                        <th>Posted Date</th>
+                        <th>Expires On</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -42,29 +39,26 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td class="text-center">@Html.DisplayFor(modelItem => item.Id)</td>
-                            <td>@Html.DisplayFor(modelItem => item.JobTitle)</td>
-                            <td class="text-truncate" style="max-width: 250px;">
-                                @Html.DisplayFor(modelItem => item.JobDescription)
-                            </td>
-                            <td>@Html.DisplayFor(modelItem => item.JobLocation)</td>
-                            <td class="text-truncate" style="max-width: 200px;">
-                                @Html.DisplayFor(modelItem => item.JobRequirement)
-                            </td>
-                            <td class="text-center">@Html.DisplayFor(modelItem => item.postDateTime)</td>
-                            <td class="text-center">@Html.DisplayFor(modelItem => item.expiringDate)</td>
+                            <td class="text-center">@item.Id</td>
+                            <td>@item.JobTitle</td>
+                            <td class="text-truncate">@item.JobDescription</td>
+                            <td>@item.JobLocation</td>
+                            <td class="text-truncate">@item.JobRequirement</td>
+                            <td class="text-center">@item.PostDateTime</td>
+                            <td class="text-center">@item.expiringDate</td>
                             <td class="text-center">
-                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm text-white">
-                                    <i class="bi bi-eye"></i> Details
+                                <a asp-action="GetJobById" asp-route-id="@item.Id" class="btn btn-info btn-sm text-white" title="View">
+                                    <i class="bi bi-eye"></i>
+                                    View
                                 </a>
 
                                 @if (User.IsInRole("Admin"))
                                 {
-                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">
-                                        <i class="bi bi-pencil-square"></i> Edit
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm" title="Edit Job">
+                                        <i class="bi bi-pencil-square"></i>
                                     </a>
-                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">
-                                        <i class="bi bi-trash"></i> Delete
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm" title="Delete Job">
+                                        <i class="bi bi-trash"></i>
                                     </a>
                                 }
                             </td>

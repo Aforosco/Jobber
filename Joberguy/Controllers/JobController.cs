@@ -9,6 +9,7 @@ using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using static System.Net.Mime.MediaTypeNames;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -55,6 +56,7 @@ namespace Joberguy.Controllers
         }
 
         [HttpGet]
+        [IgnoreAntiforgeryToken]
         public IActionResult GetAllPostedJobs()
         {
 
@@ -165,33 +167,30 @@ namespace Joberguy.Controllers
             return View(myApplications);
         }
 
+        [Route("Job/GetJobById/{id}")]
         [HttpGet]
-        public IActionResult GetJobByID(int id)
+        [IgnoreAntiforgeryToken]
+        public IActionResult GetJobById(int id)
         {
-            try
-            {
-                var job = _ijs.GetJobById(id);
+            var job = _ijs.GetJobById(id);
+            if (job == null) return NotFound();
 
-                if (job == null)
-                {
-                    return NotFound(new { message = $"Job with ID {id} not found." });
-                }
+            var jobViewModel = job.Adapt<SingleJobViewModel>();
 
-                // Convert Job → SingleJobViewModel
-                var jobViewModel = job.Adapt<SingleJobViewModel>();
-
-                return Ok(jobViewModel);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { message = "An error occurred.", details = ex.Message });
-            }
+            return View("GetJobById", jobViewModel); // ✅ Render a View
         }
+
 
         [HttpGet]
         public IActionResult JobApplicationRecieved(int id)
         {
             var Applications = _ijs.GetApplicationforJob(id);
+            if (Applications == null )
+            {
+                return View(new List<JobApplication>()); 
+            }
+            ViewBag.JobTitle = Applications.JobTitle ?? "Job Applications";
+
             return Ok(Applications);
 
         }
