@@ -16,7 +16,7 @@ using static System.Net.Mime.MediaTypeNames;
 namespace Joberguy.Controllers
 {
     
-    [ValidateAntiForgeryTokenAttribute]
+   
     public class JobController : Controller
     {
         private readonly IJobService _ijs;
@@ -105,12 +105,25 @@ namespace Joberguy.Controllers
 
 
         [HttpGet]
-        public IActionResult SendApplication()
+        public IActionResult SendApplication(int jobId)
         {
+            // Get the job details based on the jobId
+            var job = _ijs.GetJobById(jobId);
+            if (job == null) return NotFound();
 
-            return View();
+            // Create a new SendApplicationViewModel and map the job data to it
+            var sendApplicationViewModel = new SendApplicationViewModel
+            {
+                JobDescription = job.JobDescription,
+                JobLocation = job.JobLocation,
+                ExpiringDate = job.expiringDate,
+                Id = job.Id 
+            };
 
+            // Return the view with the model
+            return View(sendApplicationViewModel);
         }
+
 
         [HttpPost]
         public IActionResult SendApplication(SendApplicationViewModel apply)

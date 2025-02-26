@@ -46,7 +46,11 @@ namespace Joberguy.Service
                 .Map(d => d.JobDescription, s => s.JobDescription)
                 .Map(d => d.JobRequirement, s => s.JobRequirement)
                 .Map(d => d.expiringDate, s => s.expiringDate);
-
+            config.NewConfig<SingleJobViewModel, SendApplicationViewModel>()
+                 .Map(d => d.ExpiringDate, s => s.expiringDate)
+                 .Map(d => d.JobDescription, s => s.JobDescription)
+                 .Map(d => d.JobLocation, s => s.JobLocation);
+                 
         }
     }
 

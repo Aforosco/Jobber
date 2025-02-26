@@ -21,7 +21,7 @@
                     @if (User.Identity.IsAuthenticated && !User.IsInRole("Admin"))
                     {
                         <!-- If user is logged in and NOT an admin, allow applying -->
-                        <a class="btn btn-success w-50 me-2" asp-action="SendApplication" asp-route-id="@Model.Id">Apply</a>
+                        <a class="btn btn-success w-50 me-2" asp-action="SendApplication" asp-route-jobid="@Model.Id">Apply</a>
                     }
                     else
                     {
@@ -38,10 +38,13 @@
 
 </body>
 
-<script>$(document).ready(function () {
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
         $(".apply-btn").click(function (e) {
-            e.preventDefault(); // Prevent default link behavior
-            window.location.href = "/Account/Login"; // Change this to your login page URL
+            e.preventDefault();
+            window.location.href = "Identity/Account/Login";
         });
-});
+    });
+
+
     </script>

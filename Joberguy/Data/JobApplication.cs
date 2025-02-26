@@ -11,7 +11,6 @@ namespace Joberguy.Data
         public int Id { get; set; }
         public string? ApplicatFirstName { get; set; }
         public string? ApplicantLastName { get; set; }
-        public string?Address { get; set; }
         [Required]
         public Gender Gender { get; set; }
         public string? JobDescription { get; set; }
@@ -22,10 +21,12 @@ namespace Joberguy.Data
         public DateTime ApplicationDate { get; set; } = DateTime.Now;
         public bool HasApplied { get; set; } = false;
         [ForeignKey("JobId")]
-        public int JobId { get; set; }  
+        public int JobId { get; set; }
         public virtual Job? Job { get; set; }
         [ForeignKey("UserId")]
         public string? UserId { get; set; }
+        [ForeignKey("Id")]
+        public virtual Address? Address {get;set;}
 
         public virtual ApplicationUser? User { get; set; }
 

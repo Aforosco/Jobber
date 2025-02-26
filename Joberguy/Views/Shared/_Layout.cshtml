@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Joberguy</title>
+    <base href="/" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Joberguy.styles.css" asp-append-version="true" />
@@ -37,37 +37,38 @@
         </main>
     </div>
 
-            <footer class="footer bg-dark text-light py-4 mt-5">
-                <div class="container">
-                    <div class="row text-center text-md-start">
-                        <div class="col-md-4">
-                            <p class="mb-1">
-                                📞 <strong>Contact Us:</strong>
-                                <a href="mailto:recruitment@yourinstitute.edu" class="text-light text-decoration-none">
-                                    recruitment@yourinstitute.edu
-                                </a> | +123 456 7890
-                            </p>
-                        </div>
-                        <div class="col-md-4">
-                            <p class="mb-1 mr-2">
-                                📍 <strong>Location:</strong> 123 Academy Road, City, Country
-                            </p>
-                        </div>
-                        <div class="col-md-4">
-                            <p class="mb-1">
-                                🔗
-                                <a href="#" class="text-light text-decoration-none mx-2">Privacy Policy</a> |
-                                <a href="#" class="text-light text-decoration-none mx-2">FAQs</a> |
-                                <a href="#" class="text-light text-decoration-none mx-2">Terms & Conditions</a>
-                            </p>
-                        </div>
-                    </div>
+    <footer class="footer bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row text-center text-md-start">
+                <div class="col-md-4">
+                    <p class="mb-1">
+                        📞 <strong>Contact Us:</strong>
+                        <a href="mailto:recruitment@yourinstitute.edu" class="text-light text-decoration-none">
+                            recruitment@yourinstitute.edu
+                        </a> | +123 456 7890
+                    </p>
                 </div>
-            </footer>
+                <div class="col-md-4">
+                    <p class="mb-1 mr-2">
+                        📍 <strong>Location:</strong> 123 Academy Road, City, Country
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <p class="mb-1">
+                        🔗
+                        <a href="#" class="text-light text-decoration-none mx-2">Privacy Policy</a> |
+                        <a href="#" class="text-light text-decoration-none mx-2">FAQs</a> |
+                        <a href="#" class="text-light text-decoration-none mx-2">Terms & Conditions</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-     
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDq-eYVN7AgBL2pFTA4TsxNM8Bn3gWePOM&libraries=places"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

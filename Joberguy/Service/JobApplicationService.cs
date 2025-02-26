@@ -1,5 +1,6 @@
 ﻿using System;
 using Joberguy.Data;
+using Joberguy.Data.Migrations;
 using Joberguy.Models;
 using Joberguy.Repo;
 using Mapster;
@@ -34,13 +35,22 @@ namespace Joberguy.Service
 
         public void Apply(SendApplicationViewModel send)
         {
-            var app = send.Adapt<JobApplication>();
+            var app = send.Adapt<Data.JobApplication>();
+
+            app.Address = new Data.Address
+            {
+                StreetAddress = send.Address,
+                City = send.City,
+                State = send.State,
+                Country = send.Country,
+                PostalCode = send.PostalCode
+            };
             _ja.SendApplication(app);
         }
 
         public void UpdateApplication(UpdateApplicationViewModel amend)
         {
-            var update = amend.Adapt<JobApplication>();
+            var update = amend.Adapt<Data.JobApplication>();
             _ja.UpdateJobApplication(update);
         }
 
