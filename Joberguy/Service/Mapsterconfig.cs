@@ -50,8 +50,49 @@ namespace Joberguy.Service
                  .Map(d => d.ExpiringDate, s => s.expiringDate)
                  .Map(d => d.JobDescription, s => s.JobDescription)
                  .Map(d => d.JobLocation, s => s.JobLocation);
-                 
-        }
+
+            config.NewConfig<SendApplicationViewModel, JobApplication>()
+                .Map(d => d.ApplicatFirstName, s => s.ApplicatFirstName)
+                .Map(d => d.ApplicantLastName, s => s.ApplicantLastName)
+                .Map(d => d.JobLocation, s => s.JobLocation)
+                // Instead of mapping a string to d.Address, build a new Address object:
+                .Map(d => d.Address, s => new Address
+                {
+                    StreetAddress = s.Address,
+                    City = s.City,
+                    State = s.State,
+                    Country = s.Country,
+                    PostalCode = s.PostalCode
+                })
+                .Map(d => d.ApplicationDate, s => s.ApplicationDate)
+                .Map(d => d.Gender, s => s.Gender)
+                .Map(d => d.JobId, s => s.Id)
+                .Map(d => d.Nationality, s => s.Nationality);
+
+            config.NewConfig<SingleApplicationViewModel, JobApplication>()
+               .Map(d => d.ApplicatFirstName, s => s.ApplicatFirstName)
+                .Map(d => d.ApplicantLastName, s => s.ApplicantLastName)
+                .Map(d => d.JobLocation, s => s.JobLocation)
+               
+                .Map(d => d.Address, s => new Address
+                {
+                    StreetAddress = s.Address,
+                    City = s.City,
+                    State = s.State,
+                    Country = s.Country,
+                    PostalCode = s.PostalCode
+                })
+                .Map(d => d.ApplicationDate, s => s.ApplicationDate)
+                .Map(d => d.Gender, s => s.Gender)
+                .Map(d => d.JobId, s => s.Id)
+                .Map(d => d.Nationality, s => s.Nationality);
+            config.NewConfig<JobApplication, MyApplicationViewModel>()
+                    .Map(dest => dest.applicationId, src => src.Id)
+                    .Map(dest => dest.JobTitle, src => src.Job != null ? src.Job.JobTitle : "N/A")
+                    .Map(dest => dest.JobLocation, src => !string.IsNullOrEmpty(src.JobLocation) ? src.JobLocation : (src.Job != null ? src.Job.JobLocation : "N/A"))
+                    .Map(dest => dest.ApplicationDate, src => src.ApplicationDate);
+                   }
+             
     }
 
     

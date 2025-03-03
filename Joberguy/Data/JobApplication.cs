@@ -18,6 +18,8 @@ namespace Joberguy.Data
         public string? Nationality { get; set; }
         [NotMapped]
         public IFormFile? File { get; set; }
+        public string? FilePath { get; set; }
+
         public DateTime ApplicationDate { get; set; } = DateTime.Now;
         public bool HasApplied { get; set; } = false;
         [ForeignKey("JobId")]
@@ -25,7 +27,7 @@ namespace Joberguy.Data
         public virtual Job? Job { get; set; }
         [ForeignKey("UserId")]
         public string? UserId { get; set; }
-        [ForeignKey("Id")]
+        [ForeignKey("AddressId")]
         public virtual Address? Address {get;set;}
 
         public virtual ApplicationUser? User { get; set; }

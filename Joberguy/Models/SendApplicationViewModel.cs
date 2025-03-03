@@ -10,12 +10,13 @@ namespace Joberguy.Models
         
 
 
-         public int Id { get; set; }
-         [Required]
-          public string ApplicatFirstName { get; set; } = string.Empty;
+         public int Id{ get; set; }
 
-          [Required]
-          public string ApplicantLastName { get; set; } = string.Empty;
+         [Required]
+         public string ApplicatFirstName { get; set; } = string.Empty;
+
+         [Required]
+         public string ApplicantLastName { get; set; } = string.Empty;
 
          [Required]
         [Display(Name = "Street Address")]
@@ -39,8 +40,8 @@ namespace Joberguy.Models
          [Required]
          public Gender Gender { get; set; }  
 
-          [Required]
-          public IFormFile? File { get; set; }
+        //  [Required]
+         // public IFormFile? File { get; set; }
 
           public DateTime ExpiringDate { get; set; }
 
@@ -48,6 +49,8 @@ namespace Joberguy.Models
           
           public string? JobDescription { get; set; }
           public string? JobLocation { get; set; }
+             [Display(Name = "User ID")]
+            public string UserId { get; set; } = string.Empty;
 
 
 

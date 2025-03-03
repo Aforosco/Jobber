@@ -1,5 +1,6 @@
 ﻿using System;
 using Joberguy.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Joberguy.Repo
 {
@@ -9,6 +10,7 @@ namespace Joberguy.Repo
 		void WithdrawlApplication(int appId);
 		void UpdateJobApplication(JobApplication app);
         List<JobApplication> GetAllJobApplied(string userid);
+        JobApplication JobApplication(int appId);
 
 
 
@@ -23,10 +25,22 @@ namespace Joberguy.Repo
 
         public List<JobApplication> GetAllJobApplied(string userId)
         {
-            return _db.applications.Where(p => p.UserId == userId).ToList();
+            return _db.applications.Include(a => a.Job).Where(p => p.UserId == userId).ToList();
             
            
         }
+
+        
+        public JobApplication JobApplication(int appId)
+        {
+            var application = _db.applications.Include(a=> a.Job).FirstOrDefault(p => p.Id == appId);
+            if (application == null)
+            {
+                throw new KeyNotFoundException($"Application with Id {appId} not found.");
+            }
+            return application;
+        }
+
 
         public void SendApplication(JobApplication app)
         {

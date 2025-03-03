@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Joberguy.Data;
 using Joberguy.Models;
@@ -117,7 +118,9 @@ namespace Joberguy.Controllers
                 JobDescription = job.JobDescription,
                 JobLocation = job.JobLocation,
                 ExpiringDate = job.expiringDate,
-                Id = job.Id 
+                Id = job.Id,
+                UserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? string.Empty,
+                ApplicationDate = DateTime.Today
             };
 
             // Return the view with the model
@@ -174,7 +177,7 @@ namespace Joberguy.Controllers
         public async Task<IActionResult> ViewMyApplications()
         {
             var user = await _userManager.GetUserAsync(User);
-            if (user == null) return RedirectToAction("Login", "Account"); // Ensure the user is logged in
+            if (user == null) return RedirectToAction("Login", "Account"); 
 
             var myApplications = _ija.AllAppliedJobs(user.Id);
             return View(myApplications);
@@ -190,7 +193,7 @@ namespace Joberguy.Controllers
 
             var jobViewModel = job.Adapt<SingleJobViewModel>();
 
-            return View("GetJobById", jobViewModel); // ✅ Render a View
+            return View("GetJobById", jobViewModel); 
         }
 
 
@@ -207,6 +210,18 @@ namespace Joberguy.Controllers
             return Ok(Applications);
 
         }
+
+        [HttpGet]
+        public IActionResult ViewSingleApplication(int ApplicationId)
+        {
+            var application = _ija.singleApplicationView(ApplicationId);
+            if (application == null)
+            {
+                return NotFound(); // or handle the error as needed
+            }
+            return View("SingleApplicationView", application);
+        }
+
 
     }
 

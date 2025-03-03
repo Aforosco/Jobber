@@ -33,6 +33,7 @@ builder.Services.AddScoped<IJobService, JobService>();
 builder.Services.AddScoped<IJobApplicationService, JobApplicationService>();
 TypeAdapterConfig.GlobalSettings.Scan(Assembly.GetEntryAssembly()!);
 
+
 var app = builder.Build();
 try
 {

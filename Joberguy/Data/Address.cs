@@ -1,7 +1,10 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Joberguy.Data
 {
-	public class Address
+    [Table("Address")]
+    public class Address
 	{
         public int Id { get; set; }
         public string StreetAddress { get; set; } = string.Empty;
