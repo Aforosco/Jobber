@@ -52,7 +52,7 @@ namespace Joberguy.Controllers
             _ijs.InsertJob(Pjvm);
 
             TempData["SuccessMessage"] = "Job posted successfully!";
-            return RedirectToAction("AllJobs");
+            return RedirectToAction("GetAllPostedJobs");
 
         }
 
@@ -99,9 +99,15 @@ namespace Joberguy.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult DeleteJob(int id)
         {
-            _ijs.Delete(id);
-            return View();
-
+            try
+            {
+                _ijs.Delete(id);
+                return View("GetAllPostedJobs");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Error deleting job: " + ex.Message);
+            }
         }
 
 

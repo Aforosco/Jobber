@@ -2,20 +2,14 @@
 
 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Get All Posted Jobs</title>
-    
-</head>
+
 <body>
     <div class="container mt-4">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h2 class="text-primary"><i class="bi bi-briefcase"></i> Job Listings</h2>
             @if (User.IsInRole("Admin"))
             {
-                <a asp-action="Create" class="btn btn-success">
+                <a asp-action="PostJob" class="btn btn-success">
                     <i class="bi bi-plus-circle"></i> Create New Job
                 </a>
             }
@@ -27,11 +21,15 @@
                     <tr>
                         <th>Job ID</th>
                         <th>Job Title</th>
-                        <th>Description</th>
+                        @if (!User.IsInRole("Admin"))
+                        {
+                            <th>Description</th>
+                            <th>Posted Date</th>
+                            <th>Expires On</th>
+                        }
                         <th>Location</th>
                         <th>Requirements</th>
-                        <th>Posted Date</th>
-                        <th>Expires On</th>
+
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -41,11 +39,15 @@
                         <tr>
                             <td class="text-center">@item.Id</td>
                             <td>@item.JobTitle</td>
-                            <td class="text-truncate">@item.JobDescription</td>
+                            @if (!User.IsInRole("Admin"))
+                            {
+                                <td class="text-truncate">@item.JobDescription</td>
+                                <td class="text-center">@item.PostDateTime.ToShortDateString()</td>
+                                <td class="text-center">@item.expiringDate.ToShortDateString()</td>
+                            }
                             <td>@item.JobLocation</td>
                             <td class="text-truncate">@item.JobRequirement</td>
-                            <td class="text-center">@item.PostDateTime</td>
-                            <td class="text-center">@item.expiringDate</td>
+
                             <td class="text-center">
                                 <a asp-action="GetJobById" asp-route-id="@item.Id" class="btn btn-info btn-sm text-white" title="View">
                                     <i class="bi bi-eye"></i>
@@ -54,10 +56,10 @@
 
                                 @if (User.IsInRole("Admin"))
                                 {
-                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm" title="Edit Job">
+                                    <a asp-action="EditPostedJob" asp-route-id="@item.Id" class="btn btn-warning btn-sm" title="Edit Job">
                                         <i class="bi bi-pencil-square"></i>
                                     </a>
-                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm" title="Delete Job">
+                                    <a asp-action="DeleteJob" asp-route-id="@item.Id" class="delete btn btn-danger btn-sm" title="Delete Job">
                                         <i class="bi bi-trash"></i>
                                     </a>
                                 }
@@ -70,4 +72,60 @@
     </div>
 
 </body>
-</html>
+
+<<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Select all delete buttons (assuming they have the class "delete")
+    const deleteButtons = document.querySelectorAll('.delete');
+
+    deleteButtons.forEach(function(button) {
+        button.addEventListener('click', function(e) {
+            e.preventDefault(); // Prevent default link behavior
+            const deleteUrl = this.getAttribute('href');
+            const row = this.closest('tr'); // Find the closest table row
+
+            if (confirm("Are you sure you want to delete this item?")) {
+                fetch(deleteUrl, {
+                    method: 'POST'
+                })
+                .then(function(response) {
+                    if (!response.ok) {
+                        throw new Error(response.statusText);
+                    }
+                    return response.text(); // or response.json(), depending on your API
+                })
+                .then(function(data) {
+                    // Fade out the row using CSS transition
+                    row.style.transition = "opacity 0.5s ease";
+                    row.style.opacity = 0;
+                    setTimeout(function() {
+                        row.remove();
+                    }, 500);
+
+                    // Show success toast
+                    Toastify({
+                        text: "Job has been deleted successfully!",
+                        duration: 3000,
+                        close: true,
+                        gravity: "bottom",
+                        position: "right",
+                        backgroundColor: "#28a745"
+                    }).showToast();
+                })
+                .catch(function(error) {
+                    // Show error toast if deletion fails
+                    Toastify({
+                        text: "Error deleting item: " + error.message,
+                        duration: 3000,
+                        close: true,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "#dc3545"
+                    }).showToast();
+                });
+            }
+        });
+    });
+});
+</script>
+

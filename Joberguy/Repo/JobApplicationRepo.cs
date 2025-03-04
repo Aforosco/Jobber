@@ -33,7 +33,7 @@ namespace Joberguy.Repo
         
         public JobApplication JobApplication(int appId)
         {
-            var application = _db.applications.Include(a=> a.Job).FirstOrDefault(p => p.Id == appId);
+            var application = _db.applications.Include(a=> a.Job).Include(b=>b.Address).FirstOrDefault(p => p.Id == appId);
             if (application == null)
             {
                 throw new KeyNotFoundException($"Application with Id {appId} not found.");

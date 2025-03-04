@@ -78,3 +78,7 @@ body {
 .card-body p {
     margin-bottom: 0.5rem;
 }
+
+.card {
+    margin-top: 50px;
+}
