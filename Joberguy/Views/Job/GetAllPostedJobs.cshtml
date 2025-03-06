@@ -1,6 +1,4 @@
-@model IEnumerable<Joberguy.Models.GetAllPostedJobViewModel>
-
-
+@model Joberguy.Models.AllPostedJobsViewModel
 
 
 <body>
@@ -34,7 +32,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model)
+                    @foreach (var item in Model.Jobs)
                     {
                         <tr>
                             <td class="text-center">@item.Id</td>
@@ -70,62 +68,74 @@
             </table>
         </div>
     </div>
-
-</body>
-
-<<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Select all delete buttons (assuming they have the class "delete")
-    const deleteButtons = document.querySelectorAll('.delete');
-
-    deleteButtons.forEach(function(button) {
-        button.addEventListener('click', function(e) {
-            e.preventDefault(); // Prevent default link behavior
-            const deleteUrl = this.getAttribute('href');
-            const row = this.closest('tr'); // Find the closest table row
-
-            if (confirm("Are you sure you want to delete this item?")) {
-                fetch(deleteUrl, {
-                    method: 'POST'
-                })
-                .then(function(response) {
-                    if (!response.ok) {
-                        throw new Error(response.statusText);
-                    }
-                    return response.text(); // or response.json(), depending on your API
-                })
-                .then(function(data) {
-                    // Fade out the row using CSS transition
-                    row.style.transition = "opacity 0.5s ease";
-                    row.style.opacity = 0;
-                    setTimeout(function() {
-                        row.remove();
-                    }, 500);
-
-                    // Show success toast
-                    Toastify({
-                        text: "Job has been deleted successfully!",
-                        duration: 3000,
-                        close: true,
-                        gravity: "bottom",
-                        position: "right",
-                        backgroundColor: "#28a745"
-                    }).showToast();
-                })
-                .catch(function(error) {
-                    // Show error toast if deletion fails
-                    Toastify({
-                        text: "Error deleting item: " + error.message,
-                        duration: 3000,
-                        close: true,
-                        gravity: "top",
-                        position: "right",
-                        backgroundColor: "#dc3545"
-                    }).showToast();
-                });
+    <nav aria-label="Page navigation" class="mt-3">
+        <ul class="pagination justify-content-center">
+            <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
+                <a class="page-link" href="@Url.Action("GetAllPostedJobs", new { page = Model.CurrentPage - 1 })">Previous</a>
+            </li>
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                <li class="page-item @(Model.CurrentPage == i ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("GetAllPostedJobs", new { page = i })">@i</a>
+                </li>
             }
+            <li class="page-item @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")">
+                <a class="page-link" href="@Url.Action("GetAllPostedJobs", new { page = Model.CurrentPage + 1 })">Next</a>
+            </li>
+        </ul>
+    </nav>
+</body>
+<script>document.addEventListener('DOMContentLoaded', function () {
+        // Select all delete buttons (assuming they have the class "delete")
+        const deleteButtons = document.querySelectorAll('.delete');
+
+        deleteButtons.forEach(function (button) {
+            button.addEventListener('click', function (e) {
+                e.preventDefault(); // Prevent default link behavior
+                const deleteUrl = this.getAttribute('href');
+                const row = this.closest('tr'); // Find the closest table row
+
+                if (confirm("Are you sure you want to delete this item?")) {
+                    fetch(deleteUrl, {
+                        method: 'POST'
+                    })
+                        .then(function (response) {
+                            if (!response.ok) {
+                                throw new Error(response.statusText);
+                            }
+                            return response.text(); // or response.json(), depending on your API
+                        })
+                        .then(function (data) {
+                            // Fade out the row using CSS transition
+                            row.style.transition = "opacity 0.5s ease";
+                            row.style.opacity = 0;
+                            setTimeout(function () {
+                                row.remove();
+                            }, 500);
+
+                            // Show success toast
+                            Toastify({
+                                text: "Job has been deleted successfully!",
+                                duration: 3000,
+                                close: true,
+                                gravity: "bottom",
+                                position: "right",
+                                backgroundColor: "#28a745"
+                            }).showToast();
+                        })
+                        .catch(function (error) {
+                            // Show error toast if deletion fails
+                            Toastify({
+                                text: "Error deleting item: " + error.message,
+                                duration: 3000,
+                                close: true,
+                                gravity: "top",
+                                position: "right",
+                                backgroundColor: "#dc3545"
+                            }).showToast();
+                        });
+                }
+            });
         });
-    });
-});
-</script>
+    });</script>
 

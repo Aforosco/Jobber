@@ -58,24 +58,35 @@ namespace Joberguy.Controllers
 
         [HttpGet]
         [IgnoreAntiforgeryToken]
-        public IActionResult GetAllPostedJobs()
+        public IActionResult GetAllPostedJobs(int page = 1)
         {
-
-            List<GetAllPostedJobViewModel> alljobs = _ijs.AllPostedJobs();
-
-            return View(alljobs);
-
+            var viewModel = _ijs.AllPostedJobs(page);
+            return View(viewModel);
         }
 
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
-        public IActionResult EditPostedJob()
+        public IActionResult EditPostedJob(int id)
         {
 
+            var job = _ijs.GetJobById(id);
+            if (job == null)
+            {
+                return NotFound();
+            }
+            var model = new EditJobViewModel
+            {
+                JobTitle = job.JobTitle?? string.Empty,
+                JobDescription = job.JobDescription ?? string.Empty,
+                JobLocation = job.JobLocation,
+                JobRequirement = job.JobRequirement
+            };
 
-            return View();
+            return View(model);
         }
+
+
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
@@ -90,7 +101,7 @@ namespace Joberguy.Controllers
 
             TempData["SuccessMessage"] = "Job Updated successfully!";
 
-            return RedirectToAction("AllJobs");
+            return RedirectToAction("GetAllPostedJobs");
 
         }
 
@@ -102,7 +113,7 @@ namespace Joberguy.Controllers
             try
             {
                 _ijs.Delete(id);
-                return View("GetAllPostedJobs");
+                return Ok("Job deleted successfully!");
             }
             catch (Exception ex)
             {

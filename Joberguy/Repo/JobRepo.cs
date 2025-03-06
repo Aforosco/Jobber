@@ -1,5 +1,6 @@
 ﻿using System;
 using Joberguy.Data;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
 namespace Joberguy.Repo
@@ -7,11 +8,12 @@ namespace Joberguy.Repo
 	public interface IJobRepo
 	{
 		void PostJob(Job j);
-		List<Job> GetAllPostedJobs();
+		List<Job> GetAllPostedJobs(int page =1);
 		void UpdateJobDetails(Job j);
 		void Deletejob(int jobId);
         Job GetJobById(int JobID);
         Job ApplicationRecieved(int JobId);
+        int GetJobsCount();
 
 
     }
@@ -34,12 +36,22 @@ namespace Joberguy.Repo
                 _db.SaveChanges();
             }
             
-        } 
+        }
 
-        public List<Job> GetAllPostedJobs()
+        public List<Job> GetAllPostedJobs(int page = 1)
         {
-          var alljobs =  _db.jobs.OrderBy(p => p.expiringDate).ToList();
-            return alljobs;
+            int pageSize = 10;
+            var jobs = _db.jobs
+                          .OrderBy(j => j.Id)
+                          .Skip((page - 1) * pageSize)
+                          .Take(pageSize)
+                          .ToList();
+            return jobs;
+        }
+
+        public int GetJobsCount()
+        {
+            return _db.jobs.Count();
         }
 
         public Job GetJobById(int JobId)

@@ -1,50 +1,56 @@
-@model Joberguy.Models.PostJobViewModel
+@model Joberguy.Models.EditJobViewModel
+
 <body>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <div class="card shadow-sm">
+                <div class="card shadow">
                     <div class="card-header bg-primary text-white">
-                        <h4 class="mb-0">Post a New Job</h4>
+                        <h4 class="mb-0">Edit Job</h4>
                     </div>
                     <div class="card-body">
-                        <form class="jobform" asp-action="PostJob">
-                            @Html.AntiForgeryToken()
+                        <form class="jobform" asp-action="EditPostedJob">
+
                             <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
                             <div class="mb-3">
                                 <label asp-for="JobTitle" class="form-label"></label>
                                 <input asp-for="JobTitle" class="form-control" />
                                 <span asp-validation-for="JobTitle" class="text-danger"></span>
                             </div>
+
                             <div class="mb-3">
                                 <label asp-for="JobDescription" class="form-label"></label>
                                 <textarea asp-for="JobDescription" class="form-control" rows="3"></textarea>
                                 <span asp-validation-for="JobDescription" class="text-danger"></span>
                             </div>
+
                             <div class="mb-3">
                                 <label asp-for="JobLocation" class="form-label"></label>
                                 <input asp-for="JobLocation" class="form-control" />
                                 <span asp-validation-for="JobLocation" class="text-danger"></span>
                             </div>
+
                             <div class="mb-3">
                                 <label asp-for="JobRequirement" class="form-label"></label>
                                 <textarea asp-for="JobRequirement" class="form-control" rows="3"></textarea>
                                 <span asp-validation-for="JobRequirement" class="text-danger"></span>
                             </div>
+
                             <div class="d-grid">
-                                <input type="submit" value="Create" class="create btn btn-success btn-lg" />
+                                <input type="submit" value="Save" class="btn btn-primary btn-lg" />
                             </div>
                         </form>
                     </div>
-                    <div class="card-footer text-end ">
-                        <a class="btn btn-info btn-lg" asp-action="getallpostedjobs">Back to Jobs</a>
+                    <div class="card-footer text-end">
+                        <a asp-action="GetAllPostedJobs" class="btn btn-secondary">Back to List</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </body>
+
 <script>
 
     document.addEventListener('DOMContentLoaded', function () {
@@ -77,12 +83,12 @@
 
                     // Show a success toast notification using Toastify
                     Toastify({
-                        text: "Job has been created successfully!",
+                        text: "Job updated successfully!",
                         duration: 3000,
                         close: true,
                         gravity: "bottom", // or "top"
                         position: "right",
-                        backgroundColor: "#28a745"
+                        backgroundColor: "#327da8"
                     }).showToast();
 
                     setTimeout(function () {
@@ -90,17 +96,16 @@
                     }, 1000);
                     // Optionally, reset the form or redirect the user
                     jobForm.reset();
-                   
                 })
                 .catch(function (error) {
                     // Show an error toast if the creation fails
                     Toastify({
-                        text: "Unable to create job: " + error.message,
+                        text: "Unable to update job: " + error.message,
                         duration: 3000,
                         close: true,
                         gravity: "top", // or "bottom"
                         position: "right",
-                        backgroundColor: "#dc3545"
+                        backgroundColor: "#a89d32"
                     }).showToast();
                 });
         });

@@ -3,6 +3,7 @@ using Joberguy.Data;
 using Joberguy.Models;
 using Joberguy.Repo;
 using Mapster;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Joberguy.Service
 {
@@ -10,10 +11,10 @@ namespace Joberguy.Service
 	{
 		void InsertJob(PostJobViewModel pjvm);
 		void UpdateJob(EditJobViewModel edvm);
-		List<GetAllPostedJobViewModel>AllPostedJobs();
 		void Delete(int Id);
         Job GetJobById(int jobId);
         Job GetApplicationforJob(int Id);
+        AllPostedJobsViewModel AllPostedJobs(int page = 1);
 
 
     }
@@ -26,12 +27,23 @@ namespace Joberguy.Service
             _jr = jr;
         }
 
-        public List<GetAllPostedJobViewModel> AllPostedJobs()
+        public AllPostedJobsViewModel AllPostedJobs(int page = 1)
         {
-            var jobs = _jr.GetAllPostedJobs();
-            return jobs.Adapt<List<GetAllPostedJobViewModel>>(); // ✅ Map `Job` to `GetAllPostedJobViewModel`
-        }
+            int pageSize = 10;
+            // Get the paged jobs from the repository.
+            var jobs = _jr.GetAllPostedJobs(page);
+            // Get total count.
+            var totalCount = _jr.GetJobsCount();
 
+            var viewModel = new AllPostedJobsViewModel
+            {
+                Jobs = jobs.Adapt<List<GetAllPostedJobViewModel>>(), // Using Mapster to map
+                CurrentPage = page,
+                TotalPages = (int)Math.Ceiling(totalCount / (double)pageSize)
+            };
+
+            return viewModel;
+        }
         public void Delete(int Id)
         {
             _jr.Deletejob(Id);

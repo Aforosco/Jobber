@@ -5,6 +5,7 @@ namespace Joberguy.Models
 	public class EditJobViewModel
 	{
 
+        public int  Id { get; set; }
         [Required]
         public string JobTitle { get; set; } = string.Empty;
         [Required]
